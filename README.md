@@ -226,6 +226,8 @@ cost_sharing/
 ├── cost_sharing/               # конфигурация Django
 │   ├── settings.py             # SQLite, часовой пояс Asia/Yekaterinburg, локаль ru-ru
 │   └── urls.py
+|   └── asgi.py
+|   └── wsgi.py
 └── core/                       # приложение сервиса
     ├── models.py               # 4 таблицы: people, events, purchases, debtors
     ├── reports.py              # SQL-запрос треугольной матрицы долгов
