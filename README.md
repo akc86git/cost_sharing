@@ -238,7 +238,7 @@ cost_sharing/
     ├── admin.py                # админка
     ├── tests.py                # 42 теста
     ├── management/commands/seed_demo.py
-    ├── fonts/                  # шрифты
+    ├── fonts/                  # шрифты (DejaVuSans)
     ├── migrations/0001_initial.py
     ├── templates/core/         # base, index, person_add, event_add, purchase_add,
     │                           # purchases, purchase_detail, report
