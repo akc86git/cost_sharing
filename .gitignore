@@ -10,6 +10,13 @@ wheels/
 venv/
 .venv/
 
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+secrets/
+
 # databases
 db.sqlite3
 
