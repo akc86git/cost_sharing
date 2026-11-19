@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block title %}Добавить событие — Разделение затрат{% endblock %}
+{% block content %}
+<div class="form-page">
+    <h1>Добавить событие</h1>
+    <p class="hint">Событие объединяет покупки: поездка на дачу, день рождения, поход в поход и т.п.</p>
+    <form method="post" class="card form-card">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn">Сохранить</button>
+            <a class="btn btn-ghost" href="{% url 'index' %}">На главную</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% block title %}Добавить покупку — Разделение затрат{% endblock %}
+{% block content %}
+<h1>Добавить покупку</h1>
+{% if not can_submit %}
+    <div class="message error">
+        Сначала добавьте хотя бы одного <a href="{% url 'person_add' %}">человека</a>
+        и одно <a href="{% url 'event_add' %}">событие</a>.
+    </div>
+{% endif %}
+<form method="post" class="card form-card wide">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <fieldset class="debtors">
+        <legend>Должники и коэффициенты участия</legend>
+        <p class="hint">Коэффициент: 1 — человек потребил покупку полностью (как все),
+            0.5 — половину порции (и платит вдвое меньше тех, кто съел полную).
+            Покупателя тоже можно включить в должники, если он сам этим пользовался.</p>
+        {% if debtor_errors %}
+            <ul class="errorlist">
+                {% for error in debtor_errors %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+        <table class="debtors-table">
+            <thead>
+            <tr>
+                <th>Участвует</th>
+                <th>Человек</th>
+                <th>Коэффициент (0 &lt; x &le; 1)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in debtor_rows %}
+                <tr>
+                    <td><input type="checkbox" name="debtor_{{ row.person.pk }}"
+                               id="debtor_{{ row.person.pk }}"{% if row.checked %} checked{% endif %}></td>
+                    <td><label for="debtor_{{ row.person.pk }}">{{ row.person.full_name }}
+                        <span class="muted">({{ row.person.nickname }})</span></label></td>
+                    <td><input class="input-share" type="number" name="share_{{ row.person.pk }}"
+                               value="{{ row.share }}" min="0.0001" max="1" step="any"></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3" class="muted">Пока нет ни одного человека.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+    <div class="form-actions">
+        <button type="submit" class="btn"{% if not can_submit %} disabled{% endif %}>Сохранить покупку</button>
+        <a class="btn btn-ghost" href="{% url 'index' %}">На главную</a>
+    </div>
+</form>
+{% endblock %}

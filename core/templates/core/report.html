@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+{% block title %}Отчёт о должниках — Разделение затрат{% endblock %}
+{% block content %}
+<h1>Отчёт о должниках</h1>
+
+<form method="get" action="{% url 'report' %}" class="card selector">
+    <div>
+        <label for="event-select">Событие</label>
+        <select name="event" id="event-select" class="form-select">
+            <option value="">— выберите событие —</option>
+            {% for e in events %}
+                <option value="{{ e.pk }}"{% if e.pk == selected_id %} selected{% endif %}>
+                    {{ e.description }} ({{ e.date|date:'d.m.Y' }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn">Показать отчёт</button>
+</form>
+
+{% if report %}
+    <div class="card report-card">
+        <div class="report-head">
+            <h2>{{ report.event.description }}
+                <span class="muted">— {{ report.event.date|date:'d.m.Y' }}</span></h2>
+            <div class="export-buttons">
+                <a class="btn btn-outline" href="{% url 'report_export_xlsx' report.event.pk %}">Выгрузить XLS</a>
+                <a class="btn btn-outline" href="{% url 'report_export_pdf' report.event.pk %}">Выгрузить PDF</a>
+            </div>
+        </div>
+        <p class="hint">На пересечении строки и столбца — сколько участник из строки должен
+            участнику из столбца (взаимные долги пары зачтены). На главной диагонали — нули:
+            человек сам себе не должен. Выше главной диагонали — долг «строка &rarr; столбец»,
+            ниже — те же значения зеркально со знаком минус. В столбце «Итого» — нетто-баланс
+            участника по всем парам.</p>
+        {% if report.size == 0 %}
+            <p class="muted">В этом событии ещё нет покупок — отчёт пуст.</p>
+        {% else %}
+            <div class="matrix-wrap">
+                <table class="matrix">
+                    <thead>
+                    <tr>
+                        <th>Участник</th>
+                        {% for p in report.participants %}
+                            <th>{{ p.nickname }}<small>{{ p.full_name }}</small></th>
+                        {% endfor %}
+                        <th>Итого</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in report.rows %}
+                        <tr>
+                            <th class="row-name">{{ row.person.full_name }}
+                                <span class="muted">({{ row.person.nickname }})</span></th>
+                            {% for value in row.values %}
+                                <td{% if forloop.counter0 == forloop.parentloop.counter0 %} class="zero"{% endif %}>{{ value|floatformat:2 }}</td>
+                            {% endfor %}
+                            <td class="total">{{ row.total|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <details class="sql-details">
+                <summary>Показать SQL-запрос, которым построена матрица</summary>
+                <pre>{{ matrix_sql }}</pre>
+            </details>
+        {% endif %}
+    </div>
+{% elif events %}
+    <p class="muted">Выберите событие, чтобы увидеть матрицу долгов.</p>
+{% else %}
+    <div class="message info">Пока нет ни одного события.
+        <a href="{% url 'event_add' %}">Добавьте событие</a>, затем покупки —
+        и отчёт появится здесь.</div>
+{% endif %}
+{% endblock %}

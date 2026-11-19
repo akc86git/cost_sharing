@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<section class="hero">
+    <h1>Разделение затрат</h1>
+    <p class="lead">Сервис для честного дележа общих расходов: добавьте участников и события,
+        фиксируйте покупки с коэффициентами участия — и получите готовый отчёт
+        «кто, кому и сколько должен» по каждому событию.</p>
+</section>
+
+<section class="grid">
+    <article class="card">
+        <h2>Добавить человека</h2>
+        <p>ФИО в свободной форме, никнейм и признак администратора сайта.</p>
+        <a class="btn" href="{% url 'person_add' %}">Добавить человека</a>
+    </article>
+    <article class="card">
+        <h2>Добавить событие</h2>
+        <p>Дата и краткое описание: поездка, праздник, совместный ужин.</p>
+        <a class="btn" href="{% url 'event_add' %}">Добавить событие</a>
+    </article>
+    <article class="card">
+        <h2>Добавить покупку</h2>
+        <p>Опишите покупку, укажите плательщика и коэффициенты участия должников.</p>
+        <a class="btn" href="{% url 'purchase_add' %}">Добавить покупку</a>
+    </article>
+    <article class="card">
+        <h2>Просмотр покупок</h2>
+        <p>Выберите покупку — увидите, кто её купил, сумму и кто в каких долях участвует.</p>
+        <a class="btn" href="{% url 'purchases' %}">Просмотр покупок</a>
+    </article>
+</section>
+
+<section class="card card-accent">
+    <h2>Отчёт о должниках</h2>
+    <p>Треугольная матрица долгов по выбранному событию: кто, кому и сколько должен.
+        Выгрузка в XLS и PDF одной кнопкой.</p>
+    <a class="btn btn-light" href="{% url 'report' %}">Перейти к отчёту</a>
+</section>
+
+<section class="stats">
+    <div class="stat"><b>{{ people_count }}</b><span>человек</span></div>
+    <div class="stat"><b>{{ events_count }}</b><span>событий</span></div>
+    <div class="stat"><b>{{ purchases_count }}</b><span>покупок</span></div>
+</section>
+{% endblock %}

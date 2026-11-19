@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block title %}Добавить человека — Разделение затрат{% endblock %}
+{% block content %}
+<div class="form-page">
+    <h1>Добавить человека</h1>
+    <p class="hint">ФИО указывается в свободной форме, никнейм используется в таблицах отчёта.</p>
+    <form method="post" class="card form-card">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn">Сохранить</button>
+            <a class="btn btn-ghost" href="{% url 'index' %}">На главную</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

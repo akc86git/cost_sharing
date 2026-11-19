@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ purchase.description }} — Просмотр покупок{% endblock %}
+{% block content %}
+<h1>{{ purchase.description }}</h1>
+
+<div class="card summary-grid">
+    <div class="summary-item">
+        <span class="muted">Событие</span>
+        <b><a href="{% url 'report' %}?event={{ purchase.event.pk }}">{{ purchase.event.description }}</a></b>
+        <span class="muted">{{ purchase.event.date|date:'d.m.Y' }}</span>
+    </div>
+    <div class="summary-item">
+        <span class="muted">Кто купил</span>
+        <b>{{ purchase.person.full_name }}</b>
+        <span class="muted">({{ purchase.person.nickname }})</span>
+    </div>
+    <div class="summary-item">
+        <span class="muted">Сумма покупки</span>
+        <b>{{ purchase.amount|floatformat:2 }} руб.</b>
+    </div>
+    <div class="summary-item">
+        <span class="muted">Участников</span>
+        <b>{{ debtors|length }}</b>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Участие и доли</h2>
+    {% if debtors %}
+        <p class="hint">Коэффициенты участия нормализуются: сумма долей всех участников
+            покупки приводится к 1 (например, доли 1 + 1 + 1 + 0,5 превращаются в
+            0,2857 + 0,2857 + 0,2857 + 0,1429), и каждый участник оплачивает свою
+            нормализованную долю от суммы покупки; копейки округления добавляются
+            к наибольшей доле. Итоговые взаиморасчёты по всем покупкам события — в
+            <a href="{% url 'report' %}?event={{ purchase.event.pk }}">отчёте о должниках</a>.</p>
+        <div class="matrix-wrap">
+            <table class="matrix share-table">
+                <thead>
+                <tr>
+                    <th>Участник</th>
+                    <th>Нормализованная доля</th>
+                    <th>Приходится на участника, руб.</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for d in debtors %}
+                    <tr>
+                        <th class="row-name">{{ d.person.full_name }}
+                            <span class="muted">({{ d.person.nickname }})</span></th>
+                        <td>{{ d.share|floatformat:"-4" }}</td>
+                        <td>{{ d.money|floatformat:2 }}</td>
+                    </tr>
+                {% endfor %}
+                <tr class="sum-row">
+                    <th class="row-name">Итого</th>
+                    <td>{{ shares_total|floatformat:"-4" }}</td>
+                    <td>{{ money_total|floatformat:2 }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="muted">У этой покупки пока нет участников (записей в debtors) —
+            их можно добавить в <a href="{% url 'admin:index' %}">админке</a>.</p>
+    {% endif %}
+</div>
+
+<p class="back-link">
+    <a class="btn btn-ghost" href="{% url 'purchases' %}">&larr; Ко всем покупкам</a>
+    <a class="btn btn-outline" href="{% url 'report' %}?event={{ purchase.event.pk }}">Отчёт по событию</a>
+</p>
+{% endblock %}

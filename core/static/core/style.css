@@ -1,0 +1,144 @@
+:root {
+    --primary: #4338ca;
+    --primary-dark: #3730a3;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --border: #dbe2ec;
+    --text: #0f172a;
+    --muted: #64748b;
+    --danger: #b91c1c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+}
+
+.container { max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+
+.topbar { background: #1e1b4b; color: #fff; }
+.topbar-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { color: #fff; font-weight: 700; font-size: 20px; text-decoration: none; letter-spacing: .3px; }
+.nav a { color: #c7d2fe; text-decoration: none; margin-left: 18px; font-size: 15px; }
+.nav a:hover { color: #fff; }
+
+.page { padding: 28px 20px 60px; }
+h1 { font-size: 28px; margin: 0 0 14px; }
+h2 { font-size: 19px; margin: 0 0 8px; }
+.lead { max-width: 720px; color: var(--muted); font-size: 17px; }
+.hero { margin-bottom: 10px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+        padding: 20px; box-shadow: 0 1px 2px rgba(15, 23, 42, .05); }
+.card-accent { border-left: 4px solid var(--primary); margin: 16px 0; }
+.card p { margin: 4px 0 14px; color: var(--muted); }
+
+.btn { display: inline-block; background: var(--primary); color: #fff; padding: 9px 18px;
+       border-radius: 8px; text-decoration: none; border: 1px solid var(--primary);
+       font-size: 15px; cursor: pointer; }
+.btn:hover { background: var(--primary-dark); }
+.btn-light { background: #fff; color: var(--primary); }
+.btn-light:hover { background: #eef2ff; }
+.btn-outline, .btn-ghost { background: transparent; color: var(--primary); }
+.btn-outline:hover, .btn-ghost:hover { background: #eef2ff; }
+.btn-ghost { border-color: var(--border); color: var(--muted); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.stats { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+        padding: 14px 22px; display: flex; flex-direction: column; align-items: center; min-width: 120px; }
+.stat b { font-size: 26px; color: var(--primary); }
+.stat span { color: var(--muted); font-size: 13px; }
+
+.messages { margin-bottom: 16px; }
+.message { padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; border: 1px solid; font-size: 15px; }
+.message.success { background: #ecfdf5; border-color: #34d399; color: #065f46; }
+.message.error { background: #fef2f2; border-color: #fca5a5; color: var(--danger); }
+.message.info, .message.debug { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.message.warning { background: #fffbeb; border-color: #fcd34d; color: #92400e; }
+.message a { color: inherit; }
+
+.form-page { max-width: 560px; }
+.form-card { margin-top: 8px; }
+.form-card.wide { max-width: 780px; }
+.form-card p { margin: 0 0 14px; }
+
+label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.form-input, .form-select { width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+                            border-radius: 8px; font-size: 15px; background: #fff; color: var(--text); }
+.form-input:focus, .form-select:focus { outline: 2px solid #c7d2fe; border-color: var(--primary); }
+.checkbox { width: auto; }
+.errorlist { color: var(--danger); font-size: 14px; margin: 4px 0 10px; padding-left: 18px; }
+.hint { color: var(--muted); font-size: 14px; }
+.muted { color: var(--muted); font-weight: 400; }
+.form-actions { display: flex; gap: 10px; margin-top: 18px; }
+
+fieldset.debtors { border: 1px solid var(--border); border-radius: 10px; margin: 14px 0;
+                   padding: 14px 16px 16px; }
+fieldset.debtors legend { font-weight: 700; padding: 0 6px; font-size: 15px; }
+.debtors-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.debtors-table th { text-align: left; font-size: 13px; color: var(--muted); padding: 6px 8px;
+                    border-bottom: 1px solid var(--border); }
+.debtors-table td { padding: 7px 8px; border-bottom: 1px solid #edf1f7; }
+.debtors-table input[type=checkbox] { width: 17px; height: 17px; }
+.input-share { width: 110px; padding: 7px 10px; border: 1px solid var(--border);
+               border-radius: 8px; font-size: 15px; }
+
+.selector { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.selector .form-select { width: min(420px, 100%); }
+
+.report-head { display: flex; justify-content: space-between; align-items: flex-start;
+               gap: 12px; flex-wrap: wrap; }
+.export-buttons { display: flex; gap: 10px; }
+.report-card .hint { margin: 6px 0 16px; }
+
+.matrix-wrap { overflow-x: auto; }
+table.matrix { border-collapse: collapse; width: 100%; font-size: 14px; background: #fff; }
+.matrix th, .matrix td { border: 1px solid var(--border); padding: 8px 10px; text-align: center; }
+.matrix thead th { background: #e8edfb; font-size: 13px; }
+.matrix thead th small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+.matrix .row-name { text-align: left; background: #f4f6fb; font-size: 13px; min-width: 180px; }
+.matrix td.zero { color: #94a3b8; }
+.matrix td.total, .matrix thead th:last-child { background: #f8fafc; font-weight: 600; }
+
+.sql-details { margin-top: 16px; font-size: 13px; }
+.sql-details summary { cursor: pointer; color: var(--primary); }
+.sql-details pre { background: #0f172a; color: #e2e8f0; padding: 14px; border-radius: 8px;
+                   overflow-x: auto; font-size: 12px; line-height: 1.45; }
+
+.footer { border-top: 1px solid var(--border); padding: 18px 0 26px; color: var(--muted);
+          font-size: 13px; background: #fff; }
+
+.back-link { display: flex; gap: 10px; margin-top: 18px; }
+
+/* Страница «Просмотр покупок» и карточка покупки */
+.group-title { margin: 24px 0 10px; font-size: 17px; }
+.purchase-list { display: flex; flex-direction: column; gap: 10px; }
+.purchase-item { display: flex; justify-content: space-between; align-items: center; gap: 14px;
+                 flex-wrap: wrap; background: var(--card); border: 1px solid var(--border);
+                 border-radius: 10px; padding: 13px 18px; text-decoration: none;
+                 color: var(--text); transition: border-color .15s, background .15s; }
+.purchase-item:hover { border-color: var(--primary); background: #f7f8ff; }
+.purchase-name { display: flex; flex-direction: column; gap: 2px; min-width: 200px; }
+.purchase-name b { font-size: 15px; }
+.purchase-name .muted, .summary-item .muted { font-size: 13px; }
+.purchase-meta { display: flex; align-items: center; gap: 16px; white-space: nowrap; }
+.purchase-meta .amount { font-weight: 700; color: var(--primary); font-size: 15px; }
+.purchase-meta .arrow { color: var(--muted); font-size: 18px; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 14px; margin: 14px 0 18px; }
+.summary-item { display: flex; flex-direction: column; gap: 2px; }
+.summary-item b { font-size: 16px; }
+.summary-item a { color: var(--primary); text-decoration: none; }
+.summary-item a:hover { text-decoration: underline; }
+
+.share-table td:nth-child(2) { text-align: center; }
+.share-table td:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; }
+.share-table tr.sum-row th, .share-table tr.sum-row td { background: #f8fafc; font-weight: 600; }

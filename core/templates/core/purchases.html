@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+{% block title %}Просмотр покупок — Разделение затрат{% endblock %}
+{% block content %}
+<h1>Просмотр покупок</h1>
+<p class="hint">Выберите покупку из списка — откроется карточка: кто купил,
+    на какую сумму и кто в каких долях участвует.</p>
+
+{% for group in groups %}
+    <h2 class="group-title">{{ group.event.description }}
+        <span class="muted">— {{ group.event.date|date:'d.m.Y' }}</span></h2>
+    <div class="purchase-list">
+        {% for purchase in group.purchases %}
+            <a class="purchase-item" href="{% url 'purchase_detail' purchase.pk %}">
+                <span class="purchase-name">
+                    <b>{{ purchase.description }}</b>
+                    <span class="muted">купил: {{ purchase.person.full_name }}
+                        ({{ purchase.person.nickname }})</span>
+                </span>
+                <span class="purchase-meta">
+                    <span class="amount">{{ purchase.amount|floatformat:2 }} руб.</span>
+                    <span class="muted">участников: {{ purchase.debtors.all|length }}</span>
+                    <span class="arrow">&rarr;</span>
+                </span>
+            </a>
+        {% endfor %}
+    </div>
+{% empty %}
+    <div class="message info">Покупок пока нет.
+        <a href="{% url 'purchase_add' %}">Добавьте первую покупку</a> —
+        и она появится в этом списке.</div>
+{% endfor %}
+
+<p class="back-link"><a class="btn btn-ghost" href="{% url 'index' %}">&larr; На главную</a></p>
+{% endblock %}
