@@ -221,6 +221,7 @@ curl -s http://127.0.0.1:8000/api/events/1/report/
 ```
 cost_sharing/
 ├── manage.py
+├── main.py
 ├── requirements.txt
 ├── db.sqlite3                  # база с демо-данными
 ├── cost_sharing/               # конфигурация Django
